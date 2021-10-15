@@ -96,17 +96,13 @@ pub fn spawn_bullet<'a, 'b>(
             sprite: Sprite::new(Vec2::splat(collider_size * 2f32 * 32f32)),
             ..Default::default()
         })
-        .insert(Transform::from_translation(spawn_position.extend(0.0)))
-        .insert(GlobalTransform::from_translation(
-            spawn_position.extend(0.0),
-        ))
         .insert_bundle(ColliderBundle {
             flags: (ActiveEvents::CONTACT_EVENTS).into(),
             position: [0.0, 0.0].into(),
             shape: ColliderShape::ball(collider_size / 2.0),
             ..Default::default()
         })
-        .insert(ColliderPositionSync::Discrete)
+        .insert(RigidBodyPositionSync::Discrete)
         .insert(ColliderDebugRender::with_id(0))
         .insert(crate::utils::DelayedDestroy { time_to_destroy });
 
